@@ -51,7 +51,6 @@ const SignIn = () => {
                 handleChangeText={(e) => setForm({ ...form, email: e })}
                 otherStyles={styles.inputSpacing}
                 keyboardType="email-address"
-                icon="mail" // Add an icon for email
               />
 
               <FormField 
@@ -59,8 +58,6 @@ const SignIn = () => {
                 value={form.password}
                 handleChangeText={(e) => setForm({ ...form, password: e })}
                 otherStyles={styles.inputSpacing}
-                secureTextEntry // Use secure text entry for password
-                icon="lock" // Add an icon for password
               />
             </View>
 
@@ -73,7 +70,7 @@ const SignIn = () => {
 
             <View style={styles.footer}>
               <Text style={styles.footerText}>
-                Don't have an account?
+                Don’t have an account?
               </Text>
               <Link
                 href="/sign-up"
@@ -106,27 +103,19 @@ const styles = StyleSheet.create({
     minHeight: '85vh',
   },
   logo: {
-    width: 140, // Increase size of logo
-    height: 140,
+    width: 120,
+    height: 120,
     marginBottom: 20,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
   },
   title: {
     color: '#f5f5f5',
-    fontSize: 32, // Slightly larger font size
+    fontSize: 30,
     fontWeight: 'bold',
     marginBottom: 10,
-    fontFamily: 'Roboto', // Custom font (ensure it's linked properly)
   },
   subtitle: {
     color: '#aaa',
-    fontSize: 18,
+    fontSize: 16,
     marginBottom: 30,
   },
   inputContainer: {
@@ -136,41 +125,29 @@ const styles = StyleSheet.create({
   inputSpacing: {
     marginTop: 10,
     width: '100%', // Full width for inputs
-    paddingVertical: 12,
-    borderRadius: 25,
-    backgroundColor: '#2a2a2a', // Dark background for input fields
-    borderColor: '#444', // Custom border color
-    borderWidth: 1,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
+    paddingVertical: 12, // Increase padding for height
+    borderRadius: 25, // Rounded corners similar to button
   },
   buttonContainer: {
     marginTop: 20,
     width: '100%', // Full width for button
     borderRadius: 25,
-    backgroundColor: '#FFA500', // Changed to orange color
-    paddingVertical: 15,
-    elevation: 5, // Add elevation for shadow
   },
   footer: {
     flexDirection: 'row',
     justifyContent: 'center',
     marginTop: 20,
+    alignItems: 'center', // Aligns text and link vertically
   },
   footerText: {
     fontSize: 16,
     color: '#f5f5f5',
+    marginRight: 5, // Adds space between text and link
   },
   signupLink: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#3533cd',
-    marginLeft: 5,
+    color: '#FFA500', // Orange color for better visibility
   },
 });
 

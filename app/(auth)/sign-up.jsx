@@ -77,7 +77,7 @@ const SignUp = () => {
                 href="/sign-in"
                 style={styles.signupLink}
               >
-                Login
+                Sign in
               </Link>
             </View>
           </View>
