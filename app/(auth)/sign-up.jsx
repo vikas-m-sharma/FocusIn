@@ -17,7 +17,6 @@ const SignUp = () => {
   const [isSubmitting, setSubmitting] = useState(false);
 
   const submit = () => {
-    // Handle sign-up logic here
     setSubmitting(true);
     setTimeout(() => {
       setSubmitting(false);
@@ -41,32 +40,35 @@ const SignUp = () => {
               Sign Up to FocusIn
             </Text>
 
-            {/* Input fields */}
-            <FormField 
-              title="Username"
-              value={form.username}
-              handleChangeText={(e) => setForm({ ...form, username: e })}
-              otherStyles={styles.inputSpacing}
-            />
-            <FormField 
-              title="Email"
-              value={form.email}
-              handleChangeText={(e) => setForm({ ...form, email: e })}
-              otherStyles={styles.inputSpacing}
-              keyboardType="email-address"
-            />
-            <FormField 
-              title="Password"
-              value={form.password}
-              handleChangeText={(e) => setForm({ ...form, password: e })}
-              otherStyles={styles.inputSpacing}
-            />
+            {/* Centered input fields */}
+            <View style={styles.inputContainer}>
+              <FormField 
+                title="Username"
+                value={form.username}
+                handleChangeText={(e) => setForm({ ...form, username: e })}
+                otherStyles={styles.inputSpacing}
+              />
+              <FormField 
+                title="Email"
+                value={form.email}
+                handleChangeText={(e) => setForm({ ...form, email: e })}
+                otherStyles={styles.inputSpacing}
+                keyboardType="email-address"
+              />
+              <FormField 
+                title="Password"
+                value={form.password}
+                handleChangeText={(e) => setForm({ ...form, password: e })}
+                otherStyles={styles.inputSpacing}
+              />
+            </View>
 
             <CustomButton 
               title="Sign Up"
               handlePress={submit}
               containerStyles={styles.buttonContainer} 
               isLoading={isSubmitting}
+              textStyle={styles.buttonText} // Add text style prop if your CustomButton supports it
             />
 
             <View style={styles.footer}>
@@ -96,33 +98,45 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     flexGrow: 1,
+    justifyContent: 'center', // Center content vertically
+    alignItems: 'center',     // Center content horizontally
     padding: 16,
-    justifyContent: 'center',
   },
   container: {
     alignItems: 'center',
-    minHeight: '85vh',
+    width: '100%',
+    paddingHorizontal: 20,
   },
   logo: {
-    width: 120,
-    height: 120,
+    width: 200,
+    height: 200,
     marginBottom: 20,
   },
   title: {
     color: '#f5f5f5',
     fontSize: 30,
     fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'center',
+    marginBottom: 10,
+  },
+  inputContainer: {
+    width: '100%',
+    alignItems: 'center',
+    marginBottom: 8,
   },
   inputSpacing: {
-    marginTop: 20,
-    width: '100%', // Wider input fields
+    marginTop: 0,
+    width: '90%',
+    paddingVertical: 12,
+    borderRadius: 25,
   },
   buttonContainer: {
-    marginTop: 20,
-    width: '100%', // Full width for button
+    marginTop: 0,
+    width: '90%',
     borderRadius: 25,
+    backgroundColor: '#FFFFFF', // Change to white
+  },
+  buttonText: {
+    color: '#000000', // Change text color to black
   },
   footer: {
     flexDirection: 'row',
@@ -131,12 +145,12 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontSize: 16,
-    color: '#f5f5f5',
+    color: '#FFA500',
   },
   signupLink: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#3533cd',
+    color: '#FFA500',
     marginLeft: 5,
   },
 });
