@@ -8,19 +8,23 @@ import chalk from "chalk";
 dotenv.config();
 connectDB();
 
+
 const app = express();
-
-app.get("/", (req, res)=>{
-    res.send("FocusIn API is running")
-}) 
-
-const PORT = process.env.PORT || 5000;
 
 
 // Middleware
 app.use(express.json());
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+app.get("/", (req, res)=>{
+    res.send("FocusIn API is running")
+}) 
 
-});
+
+const PORT = process.env.PORT || 5000;
+
+
+app.listen(PORT, () => {
+    console.log(
+        chalk.yellow.bold (`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
+    );
+  });
