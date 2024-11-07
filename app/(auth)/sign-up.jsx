@@ -5,7 +5,10 @@ import { LinearGradient } from 'expo-linear-gradient';
 import images from '../../constants/images';
 import FormField from '../../components/FormField';
 import CustomButton from '../../components/CustomButton';
+import { useRouter } from 'expo-router';
 import { Link } from 'expo-router';
+import axios from "axios";
+
 
 const SignUp = () => {
   const [form, setForm] = useState({
@@ -15,47 +18,57 @@ const SignUp = () => {
   });
 
   const [isSubmitting, setSubmitting] = useState(false);
+  const router = useRouter();
 
-  const submit = () => {
+  const submit = async () => {
     setSubmitting(true);
-    setTimeout(() => {
+    try {
+      const response = await axios.post('http://localhost:5000/api/users/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        router.push('/home');
+      } else {
+        alert(data.message || 'Registration failed!');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred, please try again later.');
+    } finally {
       setSubmitting(false);
-    }, 2000);
+    }
   };
 
   return (
-    <LinearGradient
-      colors={['#1c1c1c', '#3533cd', '#000000']}
-      style={styles.gradient}
-    >
+    <LinearGradient colors={['#1c1c1c', '#3533cd', '#000000']} style={styles.gradient}>
       <SafeAreaView style={styles.safeArea}>
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           <View style={styles.container}>
-            <Image 
-              source={images.logo}
-              resizeMode='contain' 
-              style={styles.logo} 
-            />
-            <Text style={styles.title}>
-              Sign Up to FocusIn
-            </Text>
+            <Image source={images.logo} resizeMode="contain" style={styles.logo} />
+            <Text style={styles.title}>Sign Up to FocusIn</Text>
 
-            {/* Centered input fields */}
             <View style={styles.inputContainer}>
-              <FormField 
+              <FormField
                 title="Username"
                 value={form.username}
                 handleChangeText={(e) => setForm({ ...form, username: e })}
                 otherStyles={styles.inputSpacing}
               />
-              <FormField 
+              <FormField
                 title="Email"
                 value={form.email}
                 handleChangeText={(e) => setForm({ ...form, email: e })}
                 otherStyles={styles.inputSpacing}
                 keyboardType="email-address"
               />
-              <FormField 
+              <FormField
                 title="Password"
                 value={form.password}
                 handleChangeText={(e) => setForm({ ...form, password: e })}
@@ -63,22 +76,17 @@ const SignUp = () => {
               />
             </View>
 
-            <CustomButton 
+            <CustomButton
               title="Sign Up"
               handlePress={submit}
-              containerStyles={styles.buttonContainer} 
+              containerStyles={styles.buttonContainer}
               isLoading={isSubmitting}
-              textStyle={styles.buttonText} // Add text style prop if your CustomButton supports it
+              textStyle={styles.buttonText}
             />
 
             <View style={styles.footer}>
-              <Text style={styles.footerText}>
-                Already have an account?
-              </Text>
-              <Link
-                href="/sign-in"
-                style={styles.signupLink}
-              >
+              <Text style={styles.footerText}>Already have an account?</Text>
+              <Link href="/sign-in" style={styles.signupLink}>
                 Sign in
               </Link>
             </View>
@@ -98,8 +106,8 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     flexGrow: 1,
-    justifyContent: 'center', // Center content vertically
-    alignItems: 'center',     // Center content horizontally
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: 16,
   },
   container: {
@@ -133,10 +141,10 @@ const styles = StyleSheet.create({
     marginTop: 0,
     width: '90%',
     borderRadius: 25,
-    backgroundColor: '#FFFFFF', // Change to white
+    backgroundColor: '#FFFFFF',
   },
   buttonText: {
-    color: '#000000', // Change text color to black
+    color: '#000000',
   },
   footer: {
     flexDirection: 'row',

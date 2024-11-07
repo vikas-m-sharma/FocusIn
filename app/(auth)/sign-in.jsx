@@ -1,3 +1,4 @@
+// web 514953434534-avtc8si154b6vhqrq5naa0e2ccvtk9eh.apps.googleusercontent.com
 import { View, Text, ScrollView, Image, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
