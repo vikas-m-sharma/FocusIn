@@ -11,6 +11,10 @@ import logout from "../assets/icons/logout.png";
 import eyeHide from "../assets/icons/eye-hide.png";
 import eye from "../assets/icons/eye.png";
 import play from "../assets/icons/play.png";
+import timetable from "../assets/icons/timetable.png";
+import chat from "../assets/icons/chat.png";
+import blog from "../assets/icons/blog.png";
+import ebook from "../assets/icons/ebook.png";
 
 export default {
   play,
@@ -26,4 +30,8 @@ export default {
   logout,
   eyeHide,
   eye,
+  timetable,
+  chat,
+  blog,
+  ebook,
 };

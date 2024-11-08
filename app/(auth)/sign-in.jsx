@@ -32,8 +32,8 @@ const SignIn = () => {
 
       if (response.status === 200) {
         alert('Login successful!');
-        // Navigate to the homepage
-        router.push('/home');
+        // Navigate to the timetablepage
+        router.push('/timetable');
         console.log(response.data);
       } else {
         alert(response.data.message || 'Login failed!');

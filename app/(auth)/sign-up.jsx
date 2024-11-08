@@ -34,7 +34,7 @@ const SignUp = () => {
       });
   
       if (response.status === 201) { // Check for successful creation
-        router.push('/home');
+        router.push('/timetable');
       } else {
         alert(response.data.message || 'Registration failed!');
       }
