@@ -10,13 +10,11 @@ const SetTask = () => {
   const [endTime, setEndTime] = useState(null);
   const [days, setDays] = useState([]);
   const [notificationEnabled, setNotificationEnabled] = useState(false);
-  const [mode, setMode] = useState('Normal'); // Options: "Normal" or "Alarm"
+  const [mode, setMode] = useState('Normal');
   const [showTimePicker, setShowTimePicker] = useState({ isStart: false, visible: false });
 
   const toggleDay = (day) => {
-    setDays((prevDays) =>
-      prevDays.includes(day) ? prevDays.filter((d) => d !== day) : [...prevDays, day]
-    );
+    setDays((prevDays) => prevDays.includes(day) ? prevDays.filter((d) => d !== day) : [...prevDays, day]);
   };
 
   const handleTimeChange = (event, selectedTime) => {
@@ -44,7 +42,7 @@ const SetTask = () => {
         mode,
       };
 
-      const response = await fetch('http://192.168.31.70/api/tasks/create', {
+      const response = await fetch('http://192.168.31.70:5001/api/tasks/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -70,36 +68,36 @@ const SetTask = () => {
       <Text style={styles.title}>Set Task</Text>
 
       {/* Task Name */}
-      <TextInput
-        style={styles.input}
-        placeholder="Enter Task Name"
-        value={taskName}
-        onChangeText={setTaskName}
-      />
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Enter your task name</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter Task Name"
+          value={taskName}
+          onChangeText={setTaskName}
+        />
+      </View>
 
       {/* Description */}
-      <TextInput
-        style={styles.input}
-        placeholder="Enter Description (Optional)"
-        value={description}
-        onChangeText={setDescription}
-      />
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Enter your description</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter Description (Optional)"
+          value={description}
+          onChangeText={setDescription}
+        />
+      </View>
 
       {/* Days Selection */}
       <View style={styles.daysContainer}>
         {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, index) => (
           <TouchableOpacity
             key={index}
-            style={[
-              styles.dayButton,
-              days.includes(index) && styles.selectedDayButton,
-            ]}
+            style={[styles.dayButton, days.includes(index) && styles.selectedDayButton]}
             onPress={() => toggleDay(index)}
           >
-            <Text style={[
-              styles.dayText,
-              days.includes(index) && styles.selectedDayText,
-            ]}>{day}</Text>
+            <Text style={[styles.dayText, days.includes(index) && styles.selectedDayText]}>{day}</Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -111,7 +109,7 @@ const SetTask = () => {
           onPress={() => setShowTimePicker({ isStart: true, visible: true })}
         >
           <Text style={styles.timeButtonText}>
-            START: {startTime ? startTime.toLocaleTimeString() : 'Set Time'}
+            Start : {startTime ? startTime.toLocaleTimeString() : 'Set Time'}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -119,7 +117,7 @@ const SetTask = () => {
           onPress={() => setShowTimePicker({ isStart: false, visible: true })}
         >
           <Text style={styles.timeButtonText}>
-            END: {endTime ? endTime.toLocaleTimeString() : 'Set Time'}
+            End : {endTime ? endTime.toLocaleTimeString() : 'Set Time'}
           </Text>
         </TouchableOpacity>
       </View>
@@ -127,29 +125,21 @@ const SetTask = () => {
       {/* Notification and Mode Selection */}
       <View style={styles.optionsContainer}>
         <TouchableOpacity
-          style={[
-            styles.optionButton,
-            notificationEnabled && styles.selectedOptionButton,
-          ]}
+          style={[styles.optionButton, notificationEnabled && styles.selectedOptionButton]}
           onPress={() => setNotificationEnabled(!notificationEnabled)}
         >
-          <Text style={[
-            styles.optionText,
-            notificationEnabled && styles.selectedOptionText,
-          ]}>ENABLE NOTIFICATION</Text>
+          <Text style={[styles.optionText, notificationEnabled && styles.selectedOptionText]}>
+            Enable Notification
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[
-            styles.optionButton,
-            mode === 'Alarm' && styles.selectedOptionButton,
-          ]}
+          style={[styles.optionButton, mode === 'Alarm' && styles.selectedOptionButton]}
           onPress={() => setMode(mode === 'Normal' ? 'Alarm' : 'Normal')}
         >
-          <Text style={[
-            styles.optionText,
-            mode === 'Alarm' && styles.selectedOptionText,
-          ]}>{mode.toUpperCase()}</Text>
+          <Text style={[styles.optionText, mode === 'Alarm' && styles.selectedOptionText]}>
+            {mode.toUpperCase()}
+          </Text>
         </TouchableOpacity>
       </View>
 
@@ -175,29 +165,38 @@ const SetTask = () => {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    justifyContent: 'center',
     padding: 20,
-    backgroundColor: '#81d4fa', // Light and simple background color
+    backgroundColor: '#F9F9F9', // Light background color
   },
   title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#333',
+    fontSize: 30,
+    fontWeight: '700',
+    color: '#2E3A59',
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: 50,
+  },
+  inputContainer: {
+    marginBottom: 25,
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: '800',
+    color: '#1c1c50',
+    marginBottom: 8,
   },
   input: {
     height: 50,
-    borderColor: '#007BFF',
-    borderWidth: 2,
-    borderRadius: 10,
-    marginBottom: 15,
+    borderColor: '#C4C4C4',
+    borderWidth: 1,
+    borderRadius: 8,
     paddingHorizontal: 15,
     fontSize: 16,
     backgroundColor: '#fff',
+    color: '#333',
   },
   daysContainer: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     justifyContent: 'space-between',
     marginBottom: 20,
   },
@@ -205,18 +204,20 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    borderWidth: 2,
-    borderColor: '#007BFF',
+    borderWidth: 1,
+    borderColor: '#C4C4C4',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
+    marginBottom: 10,
   },
   selectedDayButton: {
-    backgroundColor: '#007BFF',
+    backgroundColor: '#4A90E2',
+    borderColor: '#4A90E2',
   },
   dayText: {
     fontSize: 16,
-    color: '#007BFF',
+    color: '#333',
   },
   selectedDayText: {
     color: '#fff',
@@ -230,50 +231,52 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: 5,
     height: 50,
-    borderRadius: 10,
-    borderWidth: 2,
-    borderColor: '#007BFF',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#C4C4C4',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
   },
   timeButtonText: {
     fontSize: 16,
-    color: '#333', // Darker text for visibility
+    color: '#333',
   },
   optionsContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     marginBottom: 20,
   },
   optionButton: {
     flex: 1,
     marginHorizontal: 5,
     height: 50,
-    borderRadius: 10,
-    borderWidth: 2,
-    borderColor: '#007BFF',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#C4C4C4',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
   },
   selectedOptionButton: {
-    backgroundColor: '#007BFF',
+    backgroundColor: '#4A90E2',
+    borderColor: '#4A90E2',
   },
   optionText: {
     fontSize: 14,
-    color: '#007BFF',
+    color: '#333',
+    fontWeight:'700'
   },
   selectedOptionText: {
     color: '#fff',
   },
   saveButton: {
-    marginTop: 20,
+    marginTop: 30,
     height: 50,
-    borderRadius: 10,
+    borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#007BFF',
+    backgroundColor: '#4A90E2',
   },
   saveButtonText: {
     fontSize: 18,
