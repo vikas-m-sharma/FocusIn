@@ -1,13 +1,3 @@
-
-
-
-
-
-
-
-
-
-
 import mongoose from "mongoose";
 
 const taskSchema = mongoose.Schema({
@@ -41,6 +31,17 @@ const taskSchema = mongoose.Schema({
   days: {
     type: [String],
     required: true,
+  },
+
+  notificationEnabled: {
+    type: Boolean,
+    default: false,  // Default to false if not specified
+  },
+
+  mode: {
+    type: String,
+    enum: ['Normal', 'Alarm'],  // Either 'Normal' or 'Alarm'
+    default: 'Normal',  // Default mode is 'Normal'
   },
 
   voiceMessageUrl: { type: String },

@@ -337,6 +337,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { useRouter } from 'expo-router';
 
 const SetTask = () => {
   const [taskName, setTaskName] = useState('');
@@ -347,6 +348,8 @@ const SetTask = () => {
   const [notificationEnabled, setNotificationEnabled] = useState(false);
   const [mode, setMode] = useState('Normal');
   const [showTimePicker, setShowTimePicker] = useState({ isStart: false, visible: false });
+
+  const router = useRouter();
 
   const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
@@ -407,6 +410,7 @@ const SetTask = () => {
       const data = await response.json();
       if (data.success) {
         Alert.alert('Success', 'Task created successfully');
+        router.push('timeTableScreen/tableList');
       } else {
         Alert.alert('Error', data.message || 'Task creation failed');
       }
