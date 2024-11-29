@@ -1,3 +1,13 @@
+
+
+
+
+
+
+
+
+
+
 import mongoose from "mongoose";
 
 const taskSchema = mongoose.Schema({
@@ -10,27 +20,23 @@ const taskSchema = mongoose.Schema({
   taskName: {
     type: String,
     required: true,
-  },
+  },  
 
   description: {
     type: String,
     required: true,
-  },
+  },  
 
   startTime: {
-    type: Date,
+    type: Number,
     required: true,
   },
 
   endTime: {
-    type: Date,
+    type: Number,
     required: true,
   },
 
-  date: {
-    type: String,
-    required: true,
-  },
 
   days: {
     type: [String],

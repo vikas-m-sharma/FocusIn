@@ -5,6 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import images from '../../constants/images';
 import FormField from '../../components/FormField';
 import CustomButton from '../../components/CustomButton';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Link, useRouter } from 'expo-router';
 import axios from 'axios';
 
@@ -30,6 +31,9 @@ const SignIn = () => {
       });
 
       if (response.status === 200) {
+        const { token } = response.data; // Extract token from response
+        console.log("Received Token:", token); // Debug log
+        await AsyncStorage.setItem('authToken', token); // Save token
         alert('Login successful!');
         router.push('/timetable');
       } else {

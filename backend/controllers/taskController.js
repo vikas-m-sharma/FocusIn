@@ -9,7 +9,7 @@ import mongoose from "mongoose";
 // @access Private
 const addTask = asyncHandler(async (req, res) => {
   try {
-    const { taskName, description, startTime, endTime, date, days, voiceMessageUrl, textToSpeechUrl } = req.body;
+    const { taskName, description, startTime, endTime,days, voiceMessageUrl, textToSpeechUrl } = req.body;
 
     // Create a new task
     const task = new Task({
@@ -18,7 +18,6 @@ const addTask = asyncHandler(async (req, res) => {
       description,
       startTime,
       endTime,
-      date,
       days,
       voiceMessageUrl,
       textToSpeechUrl,
