@@ -11,6 +11,10 @@ const addTask = asyncHandler(async (req, res) => {
   try {
     const { taskName, description, startTime, endTime,days, voiceMessageUrl, textToSpeechUrl, notificationEnabled, mode } = req.body;
 
+    // Ensure startTime and endTime are Date objects
+// const start = new Date(startTime);
+// const end = new Date(endTime);
+
     // Create a new task
     const task = new Task({
       userId: req.user._id,

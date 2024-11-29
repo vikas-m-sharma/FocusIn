@@ -18,12 +18,12 @@ const taskSchema = mongoose.Schema({
   },  
 
   startTime: {
-    type: Number,
+    type: String,
     required: true,
   },
 
   endTime: {
-    type: Number,
+    type: String,
     required: true,
   },
 
