@@ -1,6 +1,9 @@
 
 
 
+
+
+
 import React, { useState } from 'react';
 import {
   View,
@@ -86,6 +89,13 @@ const SetTask = () => {
       const data = await response.json();
       if (data.success) {
         Alert.alert('Success', 'Task created successfully');
+         // Save the task to AsyncStorage (for local display)
+      const savedTasks = await AsyncStorage.getItem('tasks');
+      const tasks = savedTasks ? JSON.parse(savedTasks) : [];
+      tasks.push(taskData);
+      await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
+      
+
         router.push('timeTableScreen/tableList');
       } else {
         Alert.alert('Error', data.message || 'Task creation failed');
