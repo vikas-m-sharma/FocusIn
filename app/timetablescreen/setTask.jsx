@@ -77,7 +77,7 @@ const SetTask = () => {
         mode,
       };
 
-      const response = await fetch('http://192.168.0.107:5001/api/tasks/create', {
+      const response = await fetch('http://192.168.31.70:5000/api/tasks/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
